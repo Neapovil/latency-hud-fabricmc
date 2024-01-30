@@ -17,6 +17,6 @@ public class ClientConnectionMixin
     @Inject(method = "channelRead0", at = @At("HEAD"))
     public void channelRead0(ChannelHandlerContext channelHandlerContext, Packet<?> packet, CallbackInfo info)
     {
-        ClientConnectionEvents.RECEIVE.invoker().onReceive();
+        ClientConnectionEvents.PACKET_RECEIVE.invoker().onPacketReceive();
     }
 }

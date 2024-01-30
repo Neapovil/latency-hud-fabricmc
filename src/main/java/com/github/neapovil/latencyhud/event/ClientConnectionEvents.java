@@ -5,17 +5,17 @@ import net.fabricmc.fabric.api.event.EventFactory;
 
 public final class ClientConnectionEvents
 {
-    public static final Event<Receive> RECEIVE = EventFactory.createArrayBacked(Receive.class,
+    public static final Event<PacketReceive> PACKET_RECEIVE = EventFactory.createArrayBacked(PacketReceive.class,
             (listeners) -> () -> {
-                for (Receive listener : listeners)
+                for (PacketReceive listener : listeners)
                 {
-                    listener.onReceive();
+                    listener.onPacketReceive();
                 }
             });
 
     @FunctionalInterface
-    public interface Receive
+    public interface PacketReceive
     {
-        void onReceive();
+        void onPacketReceive();
     }
 }
