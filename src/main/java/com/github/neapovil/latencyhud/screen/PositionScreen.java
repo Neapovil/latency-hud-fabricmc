@@ -1,9 +1,8 @@
 package com.github.neapovil.latencyhud.screen;
 
 import com.github.neapovil.latencyhud.LatencyHud;
-
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 public final class PositionScreen extends Screen
@@ -31,16 +30,15 @@ public final class PositionScreen extends Screen
     @Override
     public void close()
     {
-        this.mod.saveConfig();
+        this.mod.config().save();
         this.client.setScreen(this.parent);
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
+    public void render(DrawContext context, int mouseX, int mouseY, float delta)
     {
-        super.render(matrices, mouseX, mouseY, delta);
-
-        this.textRenderer.drawWithShadow(matrices, this.string, this.mod.getConfig().positionX, this.mod.getConfig().positionY, 0xFFFFFF);
+        super.render(context, mouseX, mouseY, delta);
+        context.drawTextWithShadow(this.textRenderer, this.string, (int) this.mod.config().positionX, (int) this.mod.config().positionY, 0xFFFFFF);
     }
 
     @Override
@@ -61,12 +59,12 @@ public final class PositionScreen extends Screen
     {
         if (mouseX > 0 && mouseX <= this.maxWidth)
         {
-            this.mod.getConfig().positionX = (float) mouseX;
+            this.mod.config().positionX = (float) mouseX;
         }
 
         if (mouseY > 0 && mouseY <= this.maxHeight)
         {
-            this.mod.getConfig().positionY = (float) mouseY;
+            this.mod.config().positionY = (float) mouseY;
         }
     }
 }

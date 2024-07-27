@@ -1,4 +1,4 @@
-package com.github.neapovil.latencyhud;
+package com.github.neapovil.latencyhud.integration;
 
 import com.github.neapovil.latencyhud.screen.PositionScreen;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
@@ -8,6 +8,6 @@ public final class ModMenuIntegration implements ModMenuApi
 {
     public ConfigScreenFactory<?> getModConfigScreenFactory()
     {
-        return parent -> new PositionScreen(parent);
+        return PositionScreen::new;
     }
 }

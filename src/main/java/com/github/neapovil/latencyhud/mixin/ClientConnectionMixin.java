@@ -1,15 +1,13 @@
 package com.github.neapovil.latencyhud.mixin;
 
+import com.github.neapovil.latencyhud.event.ClientConnectionEvents;
+import io.netty.channel.ChannelHandlerContext;
+import net.minecraft.network.ClientConnection;
+import net.minecraft.network.packet.Packet;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import com.github.neapovil.latencyhud.event.ClientConnectionEvents;
-
-import io.netty.channel.ChannelHandlerContext;
-import net.minecraft.network.ClientConnection;
-import net.minecraft.network.packet.Packet;
 
 @Mixin(ClientConnection.class)
 public class ClientConnectionMixin

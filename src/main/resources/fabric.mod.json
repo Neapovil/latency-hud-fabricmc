@@ -4,19 +4,22 @@
   "version": "${version}",
   "name": "Latency Hud",
   "description": "",
-  "authors": ["Neapovil"],
+  "authors": [
+    "Neapovil"
+  ],
   "contact": {
     "homepage": "https://github.com/Neapovil",
     "sources": "https://github.com/Neapovil/latency-hud"
   },
   "license": "Unlicense",
+  "icon": "assets/latencyhud/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
       "com.github.neapovil.latencyhud.LatencyHud"
     ],
     "modmenu": [
-      "com.github.neapovil.latencyhud.ModMenuIntegration"
+      "com.github.neapovil.latencyhud.integration.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -25,8 +28,7 @@
   "depends": {
     "fabricloader": "*",
     "fabric-api": "*",
-    "minecraft": "~1.19.4",
-    "java": ">=17",
-    "fabric-api": "*"
+    "minecraft": "~1.20",
+    "java": ">=17"
   }
 }

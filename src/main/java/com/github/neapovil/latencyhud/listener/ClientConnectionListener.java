@@ -1,19 +1,19 @@
 package com.github.neapovil.latencyhud.listener;
 
-import java.time.Duration;
-import java.time.Instant;
-
 import com.github.neapovil.latencyhud.LatencyHud;
 import com.github.neapovil.latencyhud.event.ClientConnectionEvents;
 import com.github.neapovil.latencyhud.screen.PositionScreen;
-
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.util.math.MatrixStack;
+
+import java.time.Duration;
+import java.time.Instant;
 
 public final class ClientConnectionListener implements ClientConnectionEvents.PacketReceive, HudRenderCallback
 {
+    private final LatencyHud mod = LatencyHud.INSTANCE;
     private Instant lastReceivedPacket = null;
     private boolean isLagging = false;
 
@@ -32,11 +32,11 @@ public final class ClientConnectionListener implements ClientConnectionEvents.Pa
     }
 
     @Override
-    public void onHudRender(MatrixStack matrixStack, float tickDelta)
+    public void onHudRender(DrawContext drawContext, float tickDelta)
     {
         final MinecraftClient client = MinecraftClient.getInstance();
 
-        if (client.options.debugEnabled)
+        if (client.options.getReducedDebugInfo().getValue())
         {
             return;
         }
@@ -53,8 +53,6 @@ public final class ClientConnectionListener implements ClientConnectionEvents.Pa
             return;
         }
 
-        final LatencyHud mod = LatencyHud.INSTANCE;
-
         String string = playerlistentry.getLatency() + "ms";
         final String string1 = " (lagging)";
 
@@ -64,8 +62,8 @@ public final class ClientConnectionListener implements ClientConnectionEvents.Pa
         final int string1width = client.textRenderer.getWidth(string1);
 
         // normalize
-        float x = mod.getConfig().positionX;
-        float y = mod.getConfig().positionY;
+        float x = mod.config().positionX;
+        float y = mod.config().positionY;
 
         if (y < 1)
         {
@@ -77,11 +75,11 @@ public final class ClientConnectionListener implements ClientConnectionEvents.Pa
             x += width - (x + stringwidth + (this.isLagging ? string1width : 0));
         }
 
-        client.textRenderer.drawWithShadow(
-                matrixStack,
-                string + (this.isLagging ? string1 : ""),
-                x,
-                y,
-                0xFFFFFF);
+        drawContext.drawTextWithShadow(
+            client.textRenderer,
+            string + (this.isLagging ? string1 : ""),
+            (int) x,
+            (int) y,
+            0xFFFFFF);
     }
 }
