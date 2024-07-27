@@ -36,7 +36,7 @@ public final class ClientConnectionListener implements ClientConnectionEvents.Pa
     {
         final MinecraftClient client = MinecraftClient.getInstance();
 
-        if (client.options.getReducedDebugInfo().getValue())
+        if (client.getDebugHud().shouldShowDebugHud())
         {
             return;
         }
